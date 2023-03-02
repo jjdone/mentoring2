@@ -1,2 +1,5 @@
-package simple.mentoring.configuration;public class ApplicationState {
+package simple.mentoring.configuration;
+
+public enum ApplicationState {
+    APPLY, CANCEL
 }
