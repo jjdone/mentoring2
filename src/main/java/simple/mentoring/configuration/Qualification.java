@@ -1,2 +1,5 @@
-package simple.mentoring.configuration;public enum Qualification {
+package simple.mentoring.configuration;
+
+public enum Qualification {
+    MENTEE, MENTOR
 }
