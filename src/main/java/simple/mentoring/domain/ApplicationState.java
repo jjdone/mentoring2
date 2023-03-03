@@ -1,4 +1,4 @@
-package simple.mentoring.configuration;
+package simple.mentoring.domain;
 
 public enum ApplicationState {
     APPLY, CANCEL

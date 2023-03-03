@@ -3,7 +3,6 @@ package simple.mentoring.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import simple.mentoring.configuration.Qualification;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
