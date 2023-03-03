@@ -1,10 +1,13 @@
 package simple.mentoring.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import simple.mentoring.configuration.ApplicationState;
 
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.*;
 
@@ -23,6 +26,7 @@ public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "application_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
@@ -34,4 +38,18 @@ public class Application {
     private Post post;
 
     private ApplicationState state;
+
+    private LocalDateTime createdDate;
+
+    @PrePersist
+    public void createDate() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    @Builder
+    public Application(User mentee, Post post, ApplicationState state) {
+        this.mentee = mentee;
+        this.post = post;
+        this.state = state;
+    }
 }
