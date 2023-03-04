@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
 </head>
 <body>
-$END$
+<div>
+    <form th:action method="post">
+        <input type="text" placeholder="아이디">
+        <input type="password" placeholder="비밀번호">
+        <button >로그인</button>
+    </form>
+</div>
 </body>
 </html>
