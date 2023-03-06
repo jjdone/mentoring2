@@ -14,18 +14,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+
         http.authorizeRequests()
-                .antMatchers("/").permitAll() // 보안 X
+                .antMatchers("/", "/signup", "/login").permitAll() // 보안 X
                 .anyRequest().authenticated(); // 나머진 보안 O -> 로그인 화면으로 이동
 
         http.formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/api/login")
+                .loginProcessingUrl("/loginProc")
                 .defaultSuccessUrl("/")
+                .usernameParameter("loginId")
             .and()
                 .logout()
-            .and()
-                .csrf().disable();
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true);
 
         return http.build();
     }
