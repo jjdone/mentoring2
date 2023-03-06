@@ -28,9 +28,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
     private Qualification qualification;
-
     private String phone;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
