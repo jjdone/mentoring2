@@ -3,9 +3,15 @@ package simple.mentoring.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static javax.persistence.EnumType.*;
 
 @Entity
 @Getter
@@ -28,15 +34,20 @@ public class User {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    private Qualification qualification;
-    private String phone;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    private Role role;
 
-    @PrePersist
-    public void createDate() {
-        this.createdDate = LocalDateTime.now();
-    }
+    @Enumerated(STRING)
+    private Qualification qualification;
+
+    private String phone;
+
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
+
+    @LastModifiedDate
+    private LocalDateTime modifiedDate = LocalDateTime.now();
 
     @Builder
     public User(String loginId, String password, String email, String nickname, Qualification qualification, String phone) {
@@ -46,5 +57,6 @@ public class User {
         this.nickname = nickname;
         this.qualification = qualification;
         this.phone = phone;
+        this.role = Role.USER;
     }
 }
