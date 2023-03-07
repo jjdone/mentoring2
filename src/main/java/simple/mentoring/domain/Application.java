@@ -3,6 +3,9 @@ package simple.mentoring.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 
@@ -36,14 +39,11 @@ public class Application {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
+    @Enumerated(EnumType.STRING)
     private ApplicationState state;
 
-    private LocalDateTime createdDate;
-
-    @PrePersist
-    public void createDate() {
-        this.createdDate = LocalDateTime.now();
-    }
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Builder
     public Application(User mentee, Post post, ApplicationState state) {

@@ -3,6 +3,10 @@ package simple.mentoring.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,13 +34,11 @@ public class Post {
     @Column(nullable = false)
     private String writer;
 
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
 
-    @PrePersist
-    public void createDate() {
-        this.createdDate = LocalDateTime.now();
-    }
+    @LastModifiedDate
+    private LocalDateTime modifiedDate = LocalDateTime.now();
 
     @Builder
     public Post(User user, String title, String contents, String writer) {
