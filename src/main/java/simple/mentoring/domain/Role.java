@@ -1,2 +1,5 @@
-package simple.mentoring.domain;public enum Role {
+package simple.mentoring.domain;
+
+public enum Role {
+    ADMIN, USER
 }
