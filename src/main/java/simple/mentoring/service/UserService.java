@@ -15,7 +15,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public User join(UserSignupDto userSignupDto) {
+    public Long join(UserSignupDto userSignupDto) {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -28,7 +28,8 @@ public class UserService {
                 .qualification(userSignupDto.getQualification())
                 .build();
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return savedUser.getId();
     }
 
 
