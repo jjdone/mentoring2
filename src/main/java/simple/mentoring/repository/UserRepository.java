@@ -6,4 +6,6 @@ import simple.mentoring.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByLoginId(String loginId);
+
+    User findByEmail(String email);
 }
