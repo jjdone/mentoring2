@@ -1,2 +1,12 @@
-package simple.mentoring.config.oauth.provider;public interface OAuth2UserInfo {
+package simple.mentoring.config.oauth.provider;
+
+public interface OAuth2UserInfo {
+
+    String getProviderId();
+
+    String getProvider();
+
+    String getEmail();
+
+    String getName();
 }
