@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import simple.mentoring.domain.Qualification;
-import simple.mentoring.dto.user.UserLoginDto;
 import simple.mentoring.dto.user.UserSignupDto;
 import simple.mentoring.service.UserService;
 
