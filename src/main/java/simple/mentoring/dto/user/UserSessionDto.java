@@ -9,17 +9,11 @@ import simple.mentoring.domain.User;
 public class UserSessionDto {
 
     private String loginId;
-
     private String password;
-
     private String email;
-
     private String nickname;
-
     private Role role;
-
     private Qualification qualification;
-
     private String phone;
 
     public UserSessionDto(User user) {
