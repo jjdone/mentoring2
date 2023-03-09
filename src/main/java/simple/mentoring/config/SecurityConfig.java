@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import simple.mentoring.config.oauth.PrincipalOauth2UserService;
 
 @Configuration
@@ -18,6 +19,12 @@ import simple.mentoring.config.oauth.PrincipalOauth2UserService;
 public class SecurityConfig {
 
     private final PrincipalOauth2UserService oauth2UserService;
+    private final AuthenticationFailureHandler customFailureHandler;
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,6 +40,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/loginProc")
                 .defaultSuccessUrl("/")
                 .usernameParameter("loginId")
+                .failureHandler(customFailureHandler)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -45,10 +53,5 @@ public class SecurityConfig {
                 .userService(oauth2UserService);
 
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
