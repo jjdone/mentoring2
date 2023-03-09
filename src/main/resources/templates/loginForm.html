@@ -14,6 +14,9 @@
         <label th:for="password">비밀번호:</label>
         <input type="password" th:field="*{password}" required>
     </div>
+    <span th:if="${error}">
+        <p th:text="${exception}"></p>
+    </span>
     <div>
         <button type="submit">로그인</button>
     </div>
