@@ -48,13 +48,13 @@ public class User {
     private LocalDateTime modifiedDate = LocalDateTime.now();
 
     @Builder
-    public User(String loginId, String password, String email, String nickname, Qualification qualification, String phone) {
+    public User(String loginId, String password, String email, String nickname, Qualification qualification, String phone, Role role) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
         this.qualification = qualification;
         this.phone = phone;
-        this.role = Role.USER;
+        this.role = role;
     }
 }
