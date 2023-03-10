@@ -15,7 +15,7 @@ public class UserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public Long join(UserSignupDto userSignupDto) {
+    public Long signup(UserSignupDto userSignupDto) {
 
         validation(userRepository.existsByLoginId(userSignupDto.getLoginId()), "이미 존재하는 아이디입니다.");
         validation(userRepository.existsByEmail(userSignupDto.getEmail()), "이미 존재하는 이메일입니다.");
