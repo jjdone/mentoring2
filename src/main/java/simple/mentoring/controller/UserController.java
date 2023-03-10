@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import simple.mentoring.domain.Qualification;
+import simple.mentoring.dto.user.UserLoginDto;
 import simple.mentoring.dto.user.UserSignupDto;
 import simple.mentoring.service.UserService;
 
@@ -16,9 +19,15 @@ import simple.mentoring.service.UserService;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class AccountController {
+public class UserController {
 
     private final UserService userService;
+
+    @GetMapping("/signup")
+    public String signupForm(Model model) {
+        model.addAttribute("form", new UserSignupDto());
+        return "signupForm";
+    }
 
     @PostMapping("/signup")
     public String signup(@Validated @ModelAttribute("form") UserSignupDto userSignupDto, BindingResult result, Model model) {
@@ -29,12 +38,21 @@ public class AccountController {
             return "signupForm";
         }
 
-        userService.join(userSignupDto);
+        userService.signup(userSignupDto);
         return "redirect:/login";
     }
 
     @ModelAttribute("qualification")
     public Qualification[] qualifications() {
         return Qualification.values();
+    }
+
+    @GetMapping("/login")
+    public String loginForm(@RequestParam(required = false) String error,
+                            @RequestParam(required = false) String exception,  Model model) {
+        model.addAttribute("form", new UserLoginDto());
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        return "loginForm";
     }
 }
