@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
 <body>
-<p th:if="${user}" th:text="${user}"> data </p>
-<p> Hello!</p>
+<header>
+    <div th:if="${user}">
+        <p th:text="${user}"> data </p>
+        <button th:onclick="|location.href='@{/logout}'|" >로그아웃</button>
+    </div>
+</header>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.id}"></td>
+            <td th:text="${post.title}"></td>
+            <td th:text="${post.writer}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <button th:onclick="|location.href='@{/posts/uploadForm}'|" >게시글 작성</button>
+</div>
 </body>
 </html>
