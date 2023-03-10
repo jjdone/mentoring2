@@ -14,10 +14,14 @@ import simple.mentoring.config.oauth.provider.GoogleUserInfo;
 import simple.mentoring.config.oauth.provider.NaverUserinfo;
 import simple.mentoring.config.oauth.provider.OAuth2UserInfo;
 import simple.mentoring.domain.Qualification;
+import simple.mentoring.domain.Role;
 import simple.mentoring.domain.User;
+import simple.mentoring.dto.user.UserSessionDto;
 import simple.mentoring.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,6 +30,7 @@ import java.util.UUID;
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
+    private final HttpSession httpSession;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -33,6 +38,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         String userClientId = userRequest.getClientRegistration().getRegistrationId();
         Map<String, Object> attributes = oAuth2User.getAttributes();
+
+        System.out.println("attributes = " + attributes);
 
         return getPrincipalDetails(attributes, getOAuth2UserInfo(userClientId, attributes));
     }
@@ -54,9 +61,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     private PrincipalDetails getPrincipalDetails(Map<String, Object> attributes, OAuth2UserInfo oAuth2UserInfo) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User findUser = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        Optional<User> findUser = userRepository.findByEmail(oAuth2UserInfo.getEmail());
 
-        if (findUser == null) {
+        System.out.println("oAuth2UserInfo.getProviderId() = " + oAuth2UserInfo.getProviderId());
+        System.out.println("oAuth2UserInfo.getProvider() = " + oAuth2UserInfo.getProvider());
+        System.out.println("oAuth2UserInfo.getEmail() = " + oAuth2UserInfo.getEmail());
+
+        if (findUser.isEmpty()) {
+            System.out.println("PrincipalOauth2UserService.getPrincipalDetails");
             User user = User.builder()
                     .loginId(oAuth2UserInfo.getProviderId())
                     .password(encoder.encode(UUID.randomUUID().toString()))
@@ -64,11 +76,18 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .nickname(oAuth2UserInfo.getProvider() + oAuth2UserInfo.getProviderId())
                     .qualification(Qualification.MENTEE)
                     .phone(null)
+                    .role(Role.USER)
                     .build();
+
+            UserSessionDto userSessionDto = new UserSessionDto(user);
+            httpSession.setAttribute("user", userSessionDto);
 
             return new PrincipalDetails(userRepository.save(user), attributes);
         }
 
-        return new PrincipalDetails(findUser);
+        UserSessionDto userSessionDto = new UserSessionDto(findUser.get());
+        httpSession.setAttribute("user", userSessionDto);
+
+        return new PrincipalDetails(findUser.get());
     }
 }
