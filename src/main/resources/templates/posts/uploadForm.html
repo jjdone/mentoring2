@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>게시글 작성</title>
 </head>
 <body>
-$END$
+<h1>게시글 작성</h1>
+<form th:action="@{/api/posts/upload}" th:object="${form}" method="post">
+    <div>
+        <label>작성자:</label>
+        <input type="text" th:placeholder="${session.user.nickname}" th:value="${session.user.nickname}"
+               name="writer" readonly>
+    </div>
+    <div>
+        <label>제목:</label>
+        <input th:type="text" th:field="*{title}">
+    </div>
+    <div>
+        <label>내용:</label>
+        <input th:type="text" th:field="*{contents}">
+    </div>
+
+    <div>
+        <button type="submit">작성 완료</button>
+    </div>
+</form>
 </body>
 </html>
