@@ -1,6 +1,5 @@
 package simple.mentoring.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ class UserServiceTest {
         //given
 
         //when
-        Long savedId = userService.join(userSignupDto);
+        Long savedId = userService.signup(userSignupDto);
         //then
         assertThat(userRepository.findById(savedId).get().getLoginId()).isEqualTo(userSignupDto.getLoginId());
         assertThat(userRepository.findById(savedId).get().getNickname()).isEqualTo(userSignupDto.getNickname());
