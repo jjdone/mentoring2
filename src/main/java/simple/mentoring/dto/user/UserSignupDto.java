@@ -49,7 +49,7 @@ public class UserSignupDto {
                 .nickname(nickname)
                 .phone(phone)
                 .qualification(qualification)
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
     }
 }
