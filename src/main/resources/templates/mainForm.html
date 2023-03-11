@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
 <body>
 <header>
-    <div th:if="${user}">
-        <p th:text="${user}"> data </p>
+    <span sec:authorize="hasRole('ROLE_USER')">
+        <p th:text="${session.user.nickname}">Nickname</p>
         <button th:onclick="|location.href='@{/logout}'|" >로그아웃</button>
-    </div>
+    </span>
 </header>
 <div>
     <table>
@@ -29,7 +29,7 @@
         </tbody>
     </table>
 </div>
-<div>
+<div >
     <button th:onclick="|location.href='@{/posts/uploadForm}'|" >게시글 작성</button>
 </div>
 </body>
