@@ -76,7 +76,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .nickname(oAuth2UserInfo.getProvider() + oAuth2UserInfo.getProviderId())
                     .qualification(Qualification.MENTEE)
                     .phone(null)
-                    .role(Role.USER)
+                    .role(Role.ROLE_USER)
                     .build();
 
             UserSessionDto userSessionDto = new UserSessionDto(user);
