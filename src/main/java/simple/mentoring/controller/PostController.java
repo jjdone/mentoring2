@@ -20,13 +20,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/")
-    public String mainForm(HttpSession session, Model model) {
-
-        UserSessionDto user = (UserSessionDto) session.getAttribute("user");
-        if (user != null) {
-            model.addAttribute("user", user.getNickname());
-        }
-
+    public String mainForm(Model model) {
         List<PostDto> postDtoList = postService.findPostDtoList();
         model.addAttribute("posts", postDtoList);
 
@@ -34,7 +28,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/uploadForm")
-    public String uploadForm(HttpSession session, Model model) {
+    public String uploadForm(Model model) {
         model.addAttribute("form", new PostDto());
         return "posts/uploadForm";
     }
