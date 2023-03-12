@@ -6,13 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import simple.mentoring.domain.Qualification;
+import simple.mentoring.dto.user.UserDto;
 import simple.mentoring.dto.user.UserLoginDto;
 import simple.mentoring.dto.user.UserSignupDto;
+import simple.mentoring.dto.user.UserUpdateDto;
 import simple.mentoring.service.UserService;
 
 
@@ -49,10 +48,24 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginForm(@RequestParam(required = false) String error,
-                            @RequestParam(required = false) String exception,  Model model) {
+                            @RequestParam(required = false) String exception, Model model) {
         model.addAttribute("form", new UserLoginDto());
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "loginForm";
+    }
+
+    @GetMapping("/users/{userId}")
+    public String detailsForm(@PathVariable Long userId, Model model) {
+        UserDto user = userService.findById(userId);
+        model.addAttribute("user", user);
+        return "users/DetailsForm";
+    }
+
+    @GetMapping("/users/{userId}/update")
+    public String update(@PathVariable Long userId, Model model) {
+        UserUpdateDto user = userService.getUserUpdateDto(userId);
+        model.addAttribute("user", user);
+        return "users/updateForm";
     }
 }
