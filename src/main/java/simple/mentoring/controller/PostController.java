@@ -6,10 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import simple.mentoring.dto.post.PostDto;
-import simple.mentoring.dto.user.UserSessionDto;
 import simple.mentoring.service.PostService;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
