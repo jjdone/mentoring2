@@ -16,7 +16,7 @@ import simple.mentoring.config.oauth.provider.OAuth2UserInfo;
 import simple.mentoring.domain.Qualification;
 import simple.mentoring.domain.Role;
 import simple.mentoring.domain.User;
-import simple.mentoring.dto.user.UserSessionDto;
+import simple.mentoring.dto.user.UserDto;
 import simple.mentoring.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
@@ -79,14 +79,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .role(Role.ROLE_USER)
                     .build();
 
-            UserSessionDto userSessionDto = new UserSessionDto(user);
-            httpSession.setAttribute("user", userSessionDto);
+            httpSession.setAttribute("user", new UserDto(user));
 
             return new PrincipalDetails(userRepository.save(user), attributes);
         }
 
-        UserSessionDto userSessionDto = new UserSessionDto(findUser.get());
-        httpSession.setAttribute("user", userSessionDto);
+        httpSession.setAttribute("user", new UserDto(findUser.get()));
 
         return new PrincipalDetails(findUser.get());
     }

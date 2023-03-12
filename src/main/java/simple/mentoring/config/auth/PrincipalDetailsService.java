@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import simple.mentoring.domain.User;
-import simple.mentoring.dto.user.UserSessionDto;
+import simple.mentoring.dto.user.UserDto;
 import simple.mentoring.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +23,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         User user = userRepository.findByLoginId(username).orElseThrow(() ->
                 new UsernameNotFoundException("해당 사용자가 존재하지 않습니다. : " + username));
 
-        httpSession.setAttribute("user", new UserSessionDto(user));
+        httpSession.setAttribute("user", new UserDto(user));
 
         return new PrincipalDetails(user);
     }
