@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보</title>
+</head>
+<body>
+<h1>회원정보</h1>
+<ul>
+    <li>아이디: <span th:text="${user.loginId}"></span></li>
+    <li>이메일: <span th:text="${user.email}"></span></li>
+    <li>닉네임: <span th:text="${user.nickname}"></span></li>
+    <li>자격: <span th:text="${user.qualification.getKrName()}"></span></li>
+    <li>전화번호: <span th:text="${user.phone}"></span></li>
+</ul>
+
+<div>
+<!--    <a th:href="@{/users/{userId}/update (userId=${user.id})}" role="button">회원정보 수정</a>-->
+    <button th:onclick="|location.href='@{/users/{userId}/update (userId=${user.id})}'|" >회원정보 수정</button>
+</div>
+</body>
+</html>

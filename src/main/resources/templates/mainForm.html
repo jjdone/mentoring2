@@ -6,8 +6,11 @@
 </head>
 <body>
 <header>
+    <span sec:authorize="isAnonymous()">
+        <button th:onclick="|location.href='@{/login}'|" >로그인</button>
+    </span>
     <span sec:authorize="hasRole('ROLE_USER')">
-        <p th:text="${session.user.nickname}">Nickname</p>
+        <a th:text="${session.user.nickname}" th:href="@{/users/{userId} (userId=${session.user.id})}">닉네임</a>
         <button th:onclick="|location.href='@{/logout}'|" >로그아웃</button>
     </span>
 </header>
