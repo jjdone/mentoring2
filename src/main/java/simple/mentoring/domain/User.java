@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import simple.mentoring.dto.user.UserUpdateDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -56,5 +57,11 @@ public class User {
         this.qualification = qualification;
         this.phone = phone;
         this.role = role;
+    }
+
+    public void update(UserUpdateDto userUpdateDto) {
+        this.password = userUpdateDto.getPassword();
+        this.nickname = userUpdateDto.getPassword();
+        this.phone = userUpdateDto.getPhone();
     }
 }
