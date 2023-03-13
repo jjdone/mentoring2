@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import simple.mentoring.domain.User;
 import simple.mentoring.dto.user.UserDto;
 import simple.mentoring.dto.user.UserSignupDto;
 import simple.mentoring.dto.user.UserUpdateDto;
@@ -42,5 +43,12 @@ public class UserService {
     @Transactional
     public UserUpdateDto getUserUpdateDto(Long userId) {
         return new UserUpdateDto(userRepository.findById(userId).get());
+    }
+
+    @Transactional
+    public Long update(UserUpdateDto userUpdateDto) {
+        User findUser = userRepository.findById(userUpdateDto.getId()).get();
+        findUser.update(userUpdateDto);
+        return findUser.getId();
     }
 }
