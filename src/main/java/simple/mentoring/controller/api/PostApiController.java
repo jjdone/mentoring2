@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import simple.mentoring.dto.post.PostDto;
 import simple.mentoring.service.PostService;
 
-@RequestMapping("/api")
+@RequestMapping("/api/posts")
 @RestController
 @RequiredArgsConstructor
 public class PostApiController {
 
     private final PostService postService;
 
-    @PostMapping("posts/upload")
+    @PostMapping("/upload")
     public ResponseEntity<?> upload(@ModelAttribute("form") PostDto postDto) {
         return ResponseEntity.ok(postService.upload(postDto));
     }
