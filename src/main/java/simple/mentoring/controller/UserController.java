@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}/update")
-    public String update(@PathVariable Long userId, Model model) {
+    public String updateForm(@PathVariable Long userId, Model model) {
         UserUpdateDto user = userService.getUserUpdateDto(userId);
         model.addAttribute("user", user);
         return "users/updateForm";
