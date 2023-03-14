@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import simple.mentoring.dto.post.PostDto;
 import simple.mentoring.service.PostService;
 
@@ -29,5 +30,12 @@ public class PostController {
     public String uploadForm(Model model) {
         model.addAttribute("form", new PostDto());
         return "posts/uploadForm";
+    }
+
+    @GetMapping("/posts/{postId}")
+    public String detailsForm(@PathVariable Long postId, Model model) {
+        PostDto findPost = postService.findById(postId);
+        model.addAttribute("post", findPost);
+        return "posts/detailsForm";
     }
 }
