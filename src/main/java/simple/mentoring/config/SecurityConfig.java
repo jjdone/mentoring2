@@ -38,7 +38,7 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/posts/**").authenticated() // 보안 O -> 로그인 화면으로 이동
+                .antMatchers().authenticated() // 보안 O -> 로그인 화면으로 이동
                 .antMatchers().hasRole("ADMIN") // 보안 O, admin 권한만 허용
                 .antMatchers("/users/**").hasRole("USER") // 보안 O, user 권한만 허용
                 .anyRequest().permitAll(); // 나머진 보안 X
