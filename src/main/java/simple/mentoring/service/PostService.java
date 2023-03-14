@@ -33,4 +33,9 @@ public class PostService {
                 .map(PostDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public PostDto findById(Long postId) {
+        return new PostDto(postRepository.findById(postId).get());
+    }
 }
