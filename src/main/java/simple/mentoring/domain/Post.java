@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import simple.mentoring.dto.post.PostUpdateDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,5 +45,10 @@ public class Post {
         this.title = title;
         this.contents = contents;
         this.writer = writer;
+    }
+
+    public void update(PostUpdateDto postUpdateDto) {
+        this.title = postUpdateDto.getTitle();
+        this.contents = postUpdateDto.getContents();
     }
 }
