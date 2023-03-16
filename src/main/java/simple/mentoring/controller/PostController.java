@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import simple.mentoring.dto.post.PostDto;
+import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.service.PostService;
 
 import java.util.List;
@@ -37,5 +38,12 @@ public class PostController {
         PostDto findPost = postService.findById(postId);
         model.addAttribute("post", findPost);
         return "posts/detailsForm";
+    }
+
+    @GetMapping("/posts/{postId}/update")
+    public String updateForm(@PathVariable Long postId, Model model) {
+        PostUpdateDto findPost = postService.getPostUpdateDto(postId);
+        model.addAttribute("post", findPost);
+        return "posts/updateForm";
     }
 }
