@@ -35,12 +35,12 @@ public class UserService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserDto findById(Long userId) {
         return new UserDto(userRepository.findById(userId).get());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserUpdateDto getUserUpdateDto(Long userId) {
         return new UserUpdateDto(userRepository.findById(userId).get());
     }
