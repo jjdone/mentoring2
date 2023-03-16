@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import simple.mentoring.domain.Post;
 import simple.mentoring.domain.User;
 import simple.mentoring.dto.post.PostDto;
+import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.repository.PostRepository;
 import simple.mentoring.repository.UserRepository;
 
@@ -37,5 +38,17 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostDto findById(Long postId) {
         return new PostDto(postRepository.findById(postId).get());
+    }
+
+    @Transactional(readOnly = true)
+    public PostUpdateDto getPostUpdateDto(Long postId) {
+        return new PostUpdateDto(postRepository.findById(postId).get());
+    }
+
+    @Transactional
+    public Long update(PostUpdateDto postUpdateDto) {
+        Post findPost = postRepository.findById(postUpdateDto.getId()).get();
+        findPost.update(postUpdateDto);
+        return findPost.getId();
     }
 }
