@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import simple.mentoring.dto.post.PostDto;
+import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.service.PostService;
 
 @RequestMapping("/api/posts")
@@ -16,5 +17,10 @@ public class PostApiController {
     @PostMapping("/upload")
     public ResponseEntity<?> upload(@ModelAttribute("form") PostDto postDto) {
         return ResponseEntity.ok(postService.upload(postDto));
+    }
+
+    @PostMapping("/{postId}/update")
+    public ResponseEntity<?> update(@ModelAttribute("post") PostUpdateDto postUpdateDto) {
+        return ResponseEntity.ok(postService.update(postUpdateDto));
     }
 }
