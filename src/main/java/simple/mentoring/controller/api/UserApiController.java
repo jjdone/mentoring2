@@ -15,6 +15,6 @@ public class UserApiController {
 
     @PostMapping("/{userId}/update")
     public ResponseEntity<?> update(@PathVariable Long userId, @ModelAttribute UserUpdateDto userUpdateDto) {
-        return ResponseEntity.ok(userService.update(userUpdateDto));
+        return ResponseEntity.ok(userService.update(userId, userUpdateDto));
     }
 }

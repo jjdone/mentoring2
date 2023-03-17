@@ -46,8 +46,8 @@ public class UserService {
     }
 
     @Transactional
-    public Long update(UserUpdateDto userUpdateDto) {
-        User findUser = userRepository.findById(userUpdateDto.getId()).get();
+    public Long update(Long userId, UserUpdateDto userUpdateDto) {
+        User findUser = userRepository.findById(userId).get();
         findUser.update(userUpdateDto);
         return findUser.getId();
     }
