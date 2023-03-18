@@ -20,7 +20,8 @@ public class PostApiController {
     }
 
     @PostMapping("/{postId}/update")
-    public ResponseEntity<?> update(@ModelAttribute("post") PostUpdateDto postUpdateDto) {
-        return ResponseEntity.ok(postService.update(postUpdateDto));
+    public ResponseEntity<?> update(@PathVariable Long postId,
+                                    @ModelAttribute("post") PostUpdateDto postUpdateDto) {
+        return ResponseEntity.ok(postService.update(postId, postUpdateDto));
     }
 }

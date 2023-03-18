@@ -46,8 +46,8 @@ public class PostService {
     }
 
     @Transactional
-    public Long update(PostUpdateDto postUpdateDto) {
-        Post findPost = postRepository.findById(postUpdateDto.getId()).get();
+    public Long update(Long postId, PostUpdateDto postUpdateDto) {
+        Post findPost = postRepository.findById(postId).get();
         findPost.update(postUpdateDto);
         return findPost.getId();
     }
