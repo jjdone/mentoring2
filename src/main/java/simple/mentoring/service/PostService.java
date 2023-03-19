@@ -1,6 +1,8 @@
 package simple.mentoring.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import simple.mentoring.domain.Post;
@@ -27,13 +29,13 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
-    @Transactional(readOnly = true)
-    public List<PostDto> findPostDtoList() {
-        List<Post> posts = postRepository.findAll();
-        return posts.stream()
-                .map(PostDto::new)
-                .collect(Collectors.toList());
-    }
+//    @Transactional(readOnly = true)
+//    public List<PostDto> findPostDtoList() {
+//        List<Post> posts = postRepository.findAll();
+//        return posts.stream()
+//                .map(PostDto::new)
+//                .collect(Collectors.toList());
+//    }
 
     @Transactional(readOnly = true)
     public PostDto findById(Long postId) {
@@ -50,5 +52,10 @@ public class PostService {
         Post findPost = postRepository.findById(postId).get();
         findPost.update(postUpdateDto);
         return findPost.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Post> pageList(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 }
