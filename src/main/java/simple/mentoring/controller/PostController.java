@@ -2,10 +2,15 @@ package simple.mentoring.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import simple.mentoring.domain.Post;
 import simple.mentoring.dto.post.PostDto;
 import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.service.PostService;
@@ -20,10 +25,9 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/")
-    public String mainForm(Model model) {
-        List<PostDto> postDtoList = postService.findPostDtoList();
-        model.addAttribute("posts", postDtoList);
-
+    public String mainForm(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                           Model model) {
+        model.addAttribute("posts", postService.pageList(pageable));
         return "mainForm";
     }
 
