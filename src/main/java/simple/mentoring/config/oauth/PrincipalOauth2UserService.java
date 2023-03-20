@@ -63,10 +63,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<User> findUser = userRepository.findByEmail(oAuth2UserInfo.getEmail());
 
-        System.out.println("oAuth2UserInfo.getProviderId() = " + oAuth2UserInfo.getProviderId());
-        System.out.println("oAuth2UserInfo.getProvider() = " + oAuth2UserInfo.getProvider());
-        System.out.println("oAuth2UserInfo.getEmail() = " + oAuth2UserInfo.getEmail());
-
         if (findUser.isEmpty()) {
             System.out.println("PrincipalOauth2UserService.getPrincipalDetails");
             User user = User.builder()
