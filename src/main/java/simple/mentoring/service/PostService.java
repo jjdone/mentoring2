@@ -12,9 +12,6 @@ import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.repository.PostRepository;
 import simple.mentoring.repository.UserRepository;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class PostService {
