@@ -5,13 +5,19 @@ import lombok.NoArgsConstructor;
 import simple.mentoring.domain.Post;
 import simple.mentoring.domain.User;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @NoArgsConstructor
 public class PostDto {
 
     private Long id;
     private Long userId;
+
+    @NotBlank(message = "제목을 입력해주세요.")
     private String title;
+
+    @NotBlank(message = "멘토링 상세 내용을 입력해주세요.")
     private String contents;
     private String writer;
 
