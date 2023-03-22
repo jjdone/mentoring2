@@ -32,6 +32,12 @@
         </tbody>
     </table>
 </div>
+<span th:if="${hasPrev}">
+    <button th:onclick="|location.href='@{/?page={previous} (previous=${previous})}'|">이전</button>
+</span>
+<span th:if="${hasNext}">
+    <button th:onclick="|location.href='@{/?page={next} (next=${next})}'|">다음</button>
+</span>
 <span sec:authorize="isAuthenticated()"
       th:if="${session.user.qualification.getKrName() == '멘토'} or ${session.user.role.getKrRole() == '관리자'}">
     <button th:onclick="|location.href='@{/posts/uploadForm}'|" >게시글 작성</button>
