@@ -2,6 +2,7 @@ package simple.mentoring.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import simple.mentoring.domain.Post;
 import simple.mentoring.dto.post.PostDto;
 import simple.mentoring.dto.post.PostUpdateDto;
 import simple.mentoring.service.PostService;
@@ -23,7 +25,13 @@ public class PostController {
     @GetMapping("/")
     public String mainForm(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            Model model) {
-        model.addAttribute("posts", postService.pageList(pageable));
+        Page<Post> posts = postService.pageList(pageable);
+
+        model.addAttribute("posts", posts);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", posts.hasNext());
+        model.addAttribute("hasPrev", posts.hasPrevious());
         return "mainForm";
     }
 
