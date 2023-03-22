@@ -26,14 +26,6 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
-//    @Transactional(readOnly = true)
-//    public List<PostDto> findPostDtoList() {
-//        List<Post> posts = postRepository.findAll();
-//        return posts.stream()
-//                .map(PostDto::new)
-//                .collect(Collectors.toList());
-//    }
-
     @Transactional(readOnly = true)
     public PostDto findById(Long postId) {
         return new PostDto(postRepository.findById(postId).get());
@@ -55,4 +47,6 @@ public class PostService {
     public Page<Post> pageList(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
+
 }
