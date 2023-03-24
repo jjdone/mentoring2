@@ -10,6 +10,9 @@ import simple.mentoring.dto.user.UserSignupDto;
 import simple.mentoring.dto.user.UserUpdateDto;
 import simple.mentoring.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -50,5 +53,13 @@ public class UserService {
         User findUser = userRepository.findById(userId).get();
         findUser.update(userUpdateDto);
         return findUser.getId();
+    }
+
+    @Transactional
+    public List<UserDto> findAll(){
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
     }
 }
