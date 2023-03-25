@@ -48,5 +48,10 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
-
+    @Transactional
+    public Long deletePost(Long postId) {
+        Post post = postRepository.findById(postId).get();
+        postRepository.delete(post);
+        return post.getId();
+    }
 }
