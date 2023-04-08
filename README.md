@@ -89,3 +89,5 @@
         - 코멘트(후기)를 작성 가능
         - 멘티는 작성한 리뷰를 삭제 및 수정 가능
         - 작성한 리뷰 조회 가능
+4. DB 설계:
+![MentoringERD](https://user-images.githubusercontent.com/85011505/230703980-6c1abb15-685a-404d-8bda-bf8cca0def60.png)
